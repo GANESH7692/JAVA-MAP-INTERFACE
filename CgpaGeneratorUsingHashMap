@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class CgpaGenerator {
+    public static double cgpa(int[] marks){
+        int sum = 0;
+        for(int i = 0; i< marks.length;i++){
+            sum += marks[i];
+        }
+        double total_marks = 150.0;
+        double result = (sum/total_marks)*10;
+        return result;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int i = 0;
+        int hallticket_no;
+        int[] marks = new int[3];
+        HashMap hm = new HashMap();
+        do {
+            System.out.println("Enter the Hall_ticket_no of the student: ");
+            hallticket_no = sc.nextInt();
+            System.out.println("Enter the marks in Order: Maths, Physics, Chemistry");
+            for(int j = 0;j < marks.length; j++){
+                System.out.print(j+1 + ": ");
+                marks[j] = sc.nextInt();
+            }
+            hm.put(hallticket_no, marks);
+            System.out.println("Do you want to add another student data? 1: Yes, 0: No");
+            i = sc.nextInt();
+        }while(i == 1);
+        System.out.println("Enter your hallticket number: ");
+        int num = sc.nextInt();
+        if(hm.containsKey(num)){
+            if(hm.containsValue(0)){
+                System.out.println("You got a 'zero' in one or more subjects so cgpa is not generated");
+            }
+            else if(cgpa(marks) < 6.0){
+                System.out.println("Failed, you're cgpa is below 6.0");
+            }
+            else{
+                System.out.println("Your cgpa: " + Math.round(cgpa(marks)));
+            }
+        }
+        else{
+            System.out.println("User not found");
+        }
+    }
+}
